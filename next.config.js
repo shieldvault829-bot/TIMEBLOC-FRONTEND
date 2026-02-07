@@ -1,14 +1,10 @@
 // next.config.js - ULTIMATE SECURITY & OPTIMIZATION
 /** @type {import('next').NextConfig} */
 
-// Get environment for conditional config
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const nextConfig = {
-  // ====================
-  // SECURITY CONFIGURATION
-  // ====================
   reactStrictMode: true,
   swcMinify: true,
   compress: true,
@@ -220,15 +216,6 @@ const nextConfig = {
     optimizeServerReact: true,
     
     outputFileTracingRoot: process.env.NODE_ENV === 'production' ? __dirname : undefined,
-    
-    turbo: isDevelopment ? {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    } : undefined,
   },
   
   output: 'standalone',
@@ -271,30 +258,19 @@ const nextConfig = {
   },
   
   async rewrites() {
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-    const needsRewrite = isDevelopment || 
-                        (backendUrl && !backendUrl.includes('localhost:3000'));
-    
-    if (needsRewrite) {
-      return [
-        {
-          source: '/api/:path*',
-          destination: `${backendUrl}/api/:path*`,
-        },
-        {
-          source: '/socket.io/:path*',
-          destination: `${backendUrl}/socket.io/:path*`,
-        },
-      ];
-    }
-    
-    return [];
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001'}/api/:path*`,
+      },
+      {
+        source: '/socket.io/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001'}/socket.io/:path*`,
+      },
+    ];
   },
   
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
+  i18n: false,
   
   trailingSlash: false,
   
@@ -305,9 +281,5 @@ const nextConfig = {
     pagesBufferLength: 5,
   },
 };
-
-if (process.env.EXPERIMENTAL_MODULE_FEDERATION === 'true') {
-  nextConfig.experimental.externalDir = true;
-}
 
 module.exports = nextConfig;
