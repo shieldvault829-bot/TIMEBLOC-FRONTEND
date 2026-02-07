@@ -88,13 +88,10 @@ const SharePage = ({ postId, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
       <div className="relative w-full max-w-md mx-4">
-        {/* Background Animation */}
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-500/10 via-purple-500/10 to-pink-500/10 animate-pulse" />
         
-        {/* Main Card */}
         <div className="relative bg-dark-800 rounded-3xl overflow-hidden border border-dark-700 shadow-2xl">
           
-          {/* Header */}
           <div className="p-6 border-b border-dark-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -113,7 +110,6 @@ const SharePage = ({ postId, onClose }) => {
             </div>
           </div>
           
-          {/* Share Links Grid */}
           <div className="p-6">
             <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
               {shareLinks.map((platform) => (
@@ -130,7 +126,6 @@ const SharePage = ({ postId, onClose }) => {
               ))}
             </div>
             
-            {/* Link Copy Section */}
             <div className="mt-8 pt-6 border-t border-dark-700">
               <div className="flex items-center space-x-3">
                 <div className="flex-1 bg-dark-900 rounded-xl p-4 border border-dark-700">
@@ -166,7 +161,6 @@ const SharePage = ({ postId, onClose }) => {
             </div>
           </div>
           
-          {/* Footer */}
           <div className="p-4 bg-dark-900/50 border-t border-dark-700">
             <p className="text-center text-sm text-dark-400">
               Every share helps preserve memories across time 🌌

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 
 const AnimatedLogo = ({ size = 'md' }) => {
   const innerRingRef = useRef(null);
@@ -36,15 +36,13 @@ const AnimatedLogo = ({ size = 'md' }) => {
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       
-      // Smooth interpolation with bounds checking
-      const maxRotation = 15; // Max 15 degrees
+      const maxRotation = 15;
       const rawDeltaX = (lastMouseX.current - centerX) / 20;
       const rawDeltaY = (lastMouseY.current - centerY) / 20;
       
       const deltaX = Math.max(-maxRotation, Math.min(maxRotation, rawDeltaX));
       const deltaY = Math.max(-maxRotation, Math.min(maxRotation, rawDeltaY));
       
-      // Apply transformations with fallbacks
       if (innerRingRef.current) {
         innerRingRef.current.style.transform = `
           rotate(${deltaX}deg) 
@@ -61,7 +59,6 @@ const AnimatedLogo = ({ size = 'md' }) => {
       }
     } catch (error) {
       console.error('Animation error:', error);
-      // Stop animation on error
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
@@ -71,24 +68,21 @@ const AnimatedLogo = ({ size = 'md' }) => {
   }, [isHovering]);
 
   useEffect(() => {
-    // Start animation loop
     animationFrameId.current = requestAnimationFrame(animate);
     
-    // Throttled event listener
     let mouseMoveTimeout;
     const throttledMouseMove = (e) => {
       if (!mouseMoveTimeout) {
         mouseMoveTimeout = setTimeout(() => {
           handleMouseMove(e);
           mouseMoveTimeout = null;
-        }, 16); // ~60fps
+        }, 16);
       }
     };
     
     window.addEventListener('mousemove', throttledMouseMove);
     
     return () => {
-      // Cleanup everything
       window.removeEventListener('mousemove', throttledMouseMove);
       
       if (animationFrameId.current) {
@@ -99,7 +93,6 @@ const AnimatedLogo = ({ size = 'md' }) => {
         clearTimeout(mouseMoveTimeout);
       }
       
-      // Reset transformations
       if (innerRingRef.current) innerRingRef.current.style.transform = '';
       if (middleRingRef.current) middleRingRef.current.style.transform = '';
       if (outerRingRef.current) outerRingRef.current.style.transform = '';
@@ -116,7 +109,6 @@ const AnimatedLogo = ({ size = 'md' }) => {
       onTouchStart={() => setIsHovering(true)}
       onTouchEnd={() => setIsHovering(false)}
     >
-      {/* Outer Ring - Slow rotation */}
       <div 
         ref={outerRingRef}
         className="absolute inset-0 rounded-full border-2 border-primary-500/30 animate-ring-rotate"
@@ -127,7 +119,6 @@ const AnimatedLogo = ({ size = 'md' }) => {
         aria-hidden="true"
       />
       
-      {/* Middle Ring - Medium rotation */}
       <div 
         ref={middleRingRef}
         className="absolute inset-2 rounded-full border-2 border-primary-500/50 animate-ring-rotate"
@@ -138,7 +129,6 @@ const AnimatedLogo = ({ size = 'md' }) => {
         aria-hidden="true"
       />
       
-      {/* Inner Ring - Fast rotation */}
       <div 
         ref={innerRingRef}
         className="absolute inset-4 rounded-full border-2 border-primary-500 animate-ring-rotate transition-transform duration-150 ease-out"
@@ -149,7 +139,6 @@ const AnimatedLogo = ({ size = 'md' }) => {
         aria-hidden="true"
       />
       
-      {/* Center - Pulsing effect */}
       <div 
         className="absolute inset-6 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 animate-pulse"
         style={{
@@ -159,13 +148,11 @@ const AnimatedLogo = ({ size = 'md' }) => {
         aria-hidden="true"
       />
       
-      {/* Glow effect */}
       <div 
         className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary-500/10 blur-xl"
         aria-hidden="true"
       />
       
-      {/* Accessibility text */}
       <span className="sr-only">
         TimeBloc Logo - Secure, encrypted digital time capsule platform for preserving and sharing memories
       </span>
@@ -173,6 +160,4 @@ const AnimatedLogo = ({ size = 'md' }) => {
   );
 };
 
-// Add performance optimization
-export default React.memo(AnimatedLogo);
-    
+export default AnimatedLogo;
