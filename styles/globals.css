@@ -2,55 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your Logo Animations */
-.ring {
-  transform-origin: center;
-}
-
-.ring-fast {
-  animation: spinFast 6s linear infinite;
-}
-
-.ring-slow {
-  animation: spinSlow 12s linear infinite;
-}
-
-@keyframes spinFast {
-  from {
-    transform: translate(150px, 150px) rotate(0deg);
-  }
-  to {
-    transform: translate(150px, 150px) rotate(360deg);
-  }
-}
-
-@keyframes spinSlow {
-  from {
-    transform: translate(150px, 150px) rotate(360deg);
-  }
-  to {
-    transform: translate(150px, 150px) rotate(0deg);
-  }
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-gray-100;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500;
-}
-
-/* Selection */
-::selection {
-  @apply bg-blue-500/30 text-blue-900;
+body {
+  margin: 0;
+  padding: 0;
 }
