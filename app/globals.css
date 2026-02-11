@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-900 text-white;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto px-4;
+  }
+}
+
+@layer utilities {
+  .bg-dark-900 {
+    background-color: #0a0a0a;
+  }
+  .bg-dark-800 {
+    background-color: #1a1a1a;
+  }
+  .bg-dark-700 {
+    background-color: #2a2a2a;
+  }
+  .bg-dark-600 {
+    background-color: #3a3a3a;
+  }
+  .text-dark-300 {
+    color: #d1d5db;
+  }
+  .text-dark-400 {
+    color: #9ca3af;
+  }
+}
