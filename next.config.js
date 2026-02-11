@@ -2,15 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  images: {
-    domains: ['lh3.googleusercontent.com'],
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-}
+  images: { domains: ['lh3.googleusercontent.com'] },
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true }
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
